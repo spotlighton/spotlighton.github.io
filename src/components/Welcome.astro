@@ -9,12 +9,6 @@ interface Link {
 	desc: string;
 }
 
-interface Props {
-	author?: string;
-}
-
-const { author = SITE.author } = Astro.props;
-
 const links: Link[] = [
 	{
 		title: 'SVG forge projects',
@@ -50,9 +44,9 @@ const links: Link[] = [
 				d="M24.667 12c1.333 1.414 2 3.192 2 5.334 0 4.62-4.934 5.7-7.334 12C18.444 28.567 18 27.456 18 26c0-4.642 6.667-7.053 6.667-14Zm-5.334-5.333c1.6 1.65 2.4 3.43 2.4 5.333 0 6.602-8.06 7.59-6.4 17.334C13.111 27.787 12 25.564 12 22.666c0-4.434 7.333-8 7.333-16Zm-6-5.333C15.111 3.555 16 5.556 16 7.333c0 8.333-11.333 10.962-5.333 22-3.488-.774-6-4-6-8 0-8.667 8.666-10 8.666-20Z"
 				fill="#111827"></path></svg
 		>
-		<h2>{author}</h2>
+		<!-- <h2>SpotlightOn</h2> -->
 		<p>
-			Hi, I'm {author}, a passionate software developer and technology enthusiast.
+			Hi, I'm a passionate software developer and technology enthusiast.
 			I love exploring new programming languages, frameworks, and tools to create innovative solutions.
 			In my free time, I enjoy contributing to open-source projects and sharing my knowledge with
 			the developer community.
