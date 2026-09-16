@@ -32,15 +32,16 @@ const links: Link[] = [
 <div id="container">
 	<img id="background" src={background.src} alt="" fetchpriority="high" />
 	<main>
-		<section id="hero">
+		<section id="projects">
 			<h1>
 				Share the code, share the love.
 			</h1>
-
+			
+			<div>
+				<LinkList links={links} />
+			</div>
 		</section>
-		<section id="projects">
-			<LinkList links={links} />
-		</section>
+		
 	</main>
 
 	<div id="news" class="box">
@@ -86,7 +87,7 @@ const links: Link[] = [
 		justify-content: center;
 	}
 
-	#hero {
+	#projects {
 		display: flex;
 		align-items: start;
 		flex-direction: column;
@@ -96,7 +97,7 @@ const links: Link[] = [
 
 	a.button {
 		display: inline-block;
-		padding: 14px 24px;
+		padding: 10px 18px;
 		color: white;
 		text-decoration: none;
 		background: linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%);
@@ -135,7 +136,6 @@ const links: Link[] = [
 		font-size: 16px;
 		line-height: 24px;
 		letter-spacing: -0.006em;
-		margin: 0;
 	}
 
 	code {
@@ -176,7 +176,7 @@ const links: Link[] = [
 		}
 	}
 
-	@media screen and (max-width: 768px) {
+	@media screen and (max-width: 992px) {
 		#container {
 			display: flex;
 			flex-direction: column;
@@ -187,7 +187,7 @@ const links: Link[] = [
 			flex-direction: column;
 		}
 
-		#hero {
+		#projects {
 			display: block;
 			padding-top: 10%;
 		}
@@ -202,7 +202,12 @@ const links: Link[] = [
 
 		#news {
 			position: static;
-			margin-top: 2rem;
+			margin: 1rem;
+			max-width: none;
+		}
+
+		#news .button {
+			display: none;
 		}
 
 		h1 {
