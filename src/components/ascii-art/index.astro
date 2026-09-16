@@ -1,0 +1,94 @@
+---
+import asciiArt from './ascii-art.txt?raw';
+
+interface Props {
+	size?: number;
+}
+
+const { size = 16 } = Astro.props;
+---
+
+<div class="ascii-art" style={`--ascii-size: ${size}px`}>
+	<Fragment set:html={asciiArt} />
+</div>
+
+<script>
+	interface AsciiData {
+		pre: Element;
+		base: number;
+		natural: number;
+	}
+
+	interface AsciiArtElement extends HTMLElement {
+		_asciiData?: AsciiData;
+	}
+
+	const artEls = Array.from(document.querySelectorAll<AsciiArtElement>('.ascii-art'));
+
+	function setup(art: AsciiArtElement): void {
+		const pre = art.querySelector('pre.ascii');
+		if (!pre) return;
+
+		const base = parseFloat(getComputedStyle(art).getPropertyValue('--ascii-size')) || 16;
+		art.style.setProperty('--ascii-size', `${base}px`);
+
+		const natural = pre.scrollWidth;
+		if (!natural || natural <= 0) return;
+
+		art._asciiData = { pre, base, natural };
+		fit(art);
+	}
+
+	function fit(art: AsciiArtElement): void {
+		const data = art._asciiData;
+		if (!data || data.natural <= 0) return;
+
+		const scale = art.clientWidth / data.natural;
+		const fitted = (data.base * scale).toFixed(3);
+		art.style.setProperty('--ascii-size', `${fitted}px`);
+		art.classList.add('is-fit');
+	}
+
+	async function init(): Promise<void> {
+		try {
+			await document.fonts.ready;
+		} catch {
+			/* Fonts API not available, measure with current fonts */
+		}
+		artEls.forEach((art) => setup(art));
+	}
+
+	void init();
+
+	artEls.forEach((art) => {
+		if (typeof ResizeObserver !== 'undefined') {
+			new ResizeObserver(() => fit(art)).observe(art);
+		} else {
+			window.addEventListener('resize', () => fit(art));
+		}
+	});
+</script>
+
+<style>
+	.ascii-art {
+		width: 100%;
+		overflow: hidden;
+		contain: layout style paint;
+	}
+
+	.ascii-art:not(.is-fit) {
+		visibility: hidden;
+	}
+
+	:global(pre.ascii) {
+		margin: 0;
+		padding: 1.25em;
+		font-family: var(--font-ascii-export-mono);
+		font-size: var(--ascii-size, 16px);
+		font-weight: 600;
+		line-height: 1.188;
+		white-space: pre;
+		text-rendering: geometricPrecision;
+		font-variant-ligatures: none;
+	}
+</style>

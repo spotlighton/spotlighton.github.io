@@ -1,0 +1,108 @@
+---
+interface Link {
+	title: string;
+	href: string;
+	desc: string;
+}
+
+interface Props {
+	links: Link[];
+}
+
+const { links } = Astro.props;
+---
+
+<ul class="magic-list">
+	{links.map((link) => (
+		<li>
+			<a href={link.href}>{link.title}</a>
+			<p class="desc">{link.desc}</p>
+		</li>
+	))}
+</ul>
+
+<style>
+	.magic-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.magic-list li {
+		margin: 22px 0;
+		position: relative;
+		padding-left: 50px;
+	}
+
+	.magic-list li::before {
+		content: '❀';
+		position: absolute;
+		left: 0;
+		top: 19px;
+		transform: translateY(-50%);
+		font-size: 28px;
+		background: linear-gradient(45deg, #e63946, #f4a261, #2a9d8f, #9b5de5);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+		animation: spin-flower 8s linear infinite;
+	}
+
+	.magic-list a {
+		font-size: 32px;
+		font-weight: 700;
+		text-decoration: none;
+		letter-spacing: 1px;
+		background: linear-gradient(
+			90deg,
+			#e63946,
+			#f4a261,
+			#2a9d8f,
+			#9b5de5,
+			#e63946
+		);
+		background-size: 300% 300%;
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+		filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.15));
+		transition: all 0.35s ease;
+		animation: gradient-flow 7s ease infinite;
+		display: inline-block;
+	}
+
+	.magic-list a:hover {
+		background-size: 100% 100%;
+		filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+		transform: scale(1.05) rotate(-1deg);
+		letter-spacing: 2px;
+	}
+
+	.magic-list .desc {
+		margin: 4px 0 0;
+		font-size: 16px;
+		line-height: 1.4;
+		color: #6b7280;
+	}
+
+	@keyframes gradient-flow {
+		0% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+		100% {
+			background-position: 0% 50%;
+		}
+	}
+
+	@keyframes spin-flower {
+		from {
+			transform: translateY(-50%) rotate(0deg);
+		}
+		to {
+			transform: translateY(-50%) rotate(360deg);
+		}
+	}
+</style>
