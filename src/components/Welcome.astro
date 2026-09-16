@@ -19,12 +19,12 @@ const links: Link[] = [
 	{
 		title: 'SVG forge projects',
 		href: 'https://svgforge.github.io',
-		desc: 'Browserbasierte SVG-Werkzeuge und Experimente.',
+		desc: 'Browser-based SVG tools and experiments.',
 	},
 	{
 		title: 'Meshviewer',
 		href: 'https://github.com/spotlighton/meshviewer',
-		desc: 'Interaktive Electron App 3D-Mesh-Viewer for glTF (GL Transmission Format).',
+		desc: 'Interactive Electron app — 3D mesh viewer for glTF (GL Transmission Format).',
 	},
 ];
 ---
@@ -37,9 +37,9 @@ const links: Link[] = [
 				Share the code, share the love.
 			</h1>
 
-			<section id="links">
-				<LinkList links={links} />
-			</section>
+		</section>
+		<section id="projects">
+			<LinkList links={links} />
 		</section>
 	</main>
 
@@ -55,6 +55,9 @@ const links: Link[] = [
 			I love exploring new programming languages, frameworks, and tools to create innovative solutions.
 			In my free time, I enjoy contributing to open-source projects and sharing my knowledge with
 			the developer community.
+		</p>
+		<p>
+			<a class="button" href="#projects">View My Projects</a>
 		</p>
 	</div>
 </div>
@@ -92,7 +95,10 @@ const links: Link[] = [
 	}
 
 	a.button {
+		display: inline-block;
+		padding: 14px 24px;
 		color: white;
+		text-decoration: none;
 		background: linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%);
 		box-shadow:
 			inset 0 0 0 1px rgba(255, 255, 255, 0.12),
@@ -176,9 +182,18 @@ const links: Link[] = [
 			flex-direction: column;
 		}
 
+		main {
+			height: auto;
+			flex-direction: column;
+		}
+
 		#hero {
 			display: block;
 			padding-top: 10%;
+		}
+
+		#projects {
+			padding: 0 16px;
 		}
 
 		a.button {
@@ -186,10 +201,8 @@ const links: Link[] = [
 		}
 
 		#news {
-			right: 16px;
-			left: 16px;
-			bottom: 2.5rem;
-			max-width: 100%;
+			position: static;
+			margin-top: 2rem;
 		}
 
 		h1 {
